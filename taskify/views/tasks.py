@@ -1,34 +1,38 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect, reverse
-from taskify.models import Task, TaskStatus
-from taskify.forms import UpdateTaskForm, CreateTaskForm, SearchTaskForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger, Page
-from django.shortcuts import get_object_or_404
 from typing import Iterable
+
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+
+from taskify.forms import CreateTaskForm, SearchTaskForm, UpdateTaskForm
+from taskify.models import Task, TaskStatus
 
 
 @login_required
 def search(request):
     page_number = request.GET.get("page", 1)
-
+    filters = {}
     if request.method == "POST":
         form = SearchTaskForm(request.POST)
         if form.is_valid():
-            filter = {}
             if form.cleaned_data["id"]:
-                filter |= {"id": form.cleaned_data["id"]}
+                filters |= {"id": form.cleaned_data["id"]}
             if form.cleaned_data["name"]:
-                filter |= {"name": form.cleaned_data["name"]}
+                filters |= {"name": form.cleaned_data["name"]}
             if form.cleaned_data["status"] in TaskStatus:
-                filter |= {"status": form.cleaned_data["status"]}
+                filters |= {"status": form.cleaned_data["status"]}
             if form.cleaned_data["dynamic_fields"]:
-                filter |= {"dynamic_fields__contains": form.cleaned_data["dynamic_fields"]}
-            tasks = Task.objects.filter(**filter)
-        else:
-            tasks = Task.objects.all()
+                filters |= {
+                    "dynamic_fields__contains": form.cleaned_data["dynamic_fields"]
+                }
     else:
         form = SearchTaskForm()
+
+    if filters:
+        tasks = Task.objects.filter(**filters)
+    else:
+        print("############################", filters)
         tasks = Task.objects.all()
 
     page = _paginate_tasks(tasks, page_number)
@@ -75,4 +79,3 @@ def _paginate_tasks(tasks: Iterable[Task], page_number: int) -> Page[Task]:
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
     return page
-

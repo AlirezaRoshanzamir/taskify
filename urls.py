@@ -17,20 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import RedirectView
+
 from taskify.views import tasks, users
 
 urlpatterns = [
     path("", tasks.search, name="index"),
-
     path("tasks/", tasks.search, name="tasks"),
     path("tasks/search", tasks.search, name="tasks/search"),
     path("tasks/edit", tasks.edit, name="tasks/edit"),
     path("tasks/create", tasks.create, name="tasks/create"),
-
     path("users/", users.login_, name="users/login"),
     path("users/login", users.login_, name="users/login"),
     path("users/register", users.register, name="users/register"),
     path("users/logout", users.logout_, name="users/logout"),
-
     path("admin/", admin.site.urls),
 ]

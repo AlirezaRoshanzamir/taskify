@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from taskify.forms import RegisterForm, LoginForm
+from django.shortcuts import redirect, render
+
+from taskify.forms import LoginForm, RegisterForm
 
 
 def login_(request):

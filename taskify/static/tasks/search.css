@@ -28,3 +28,15 @@ table.tasks tbody tr {
 table.tasks tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+ul.pagination li {
+    display: inline;
+}

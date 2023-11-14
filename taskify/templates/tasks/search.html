@@ -12,7 +12,7 @@
 
 {% block content %}
     {% include "tasks/_menu.html" %}
-    <form method="post" action="{% url 'tasks/search' %}" class="task">
+    <form method="post" action="{% url 'tasks/search' %}" class="task" id="search-form">
         {% csrf_token %}
         {{ form.as_div }}
         <input type="submit" value="Search">
@@ -37,5 +37,17 @@
             {% endfor %}
         </tbody>
     </table>
-    {% include "_pagination.html" with page=tasks %}
+    {% if tasks.has_other_pages %}
+        <ul class="pagination">
+            {% for i in tasks.paginator.page_range %}
+                {% if tasks.number == i %}
+                    <li class="active"><span>{{ i }}</span></li>
+                {% elif i > tasks.number|add:'-5' and i < tasks.number|add:'5' %}
+                    <li><button form="search-form" formaction="?page={{ i }}">{{ i }}</button></li>
+                {% elif i == tasks.number|add:'-5' or i == tasks.number|add:'5' %}
+                    <li>...</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

@@ -67,7 +67,7 @@ def edit(request: HttpRequest):
 
 
 def _paginate_tasks(tasks: Iterable[Task], page_number: int) -> Page[Task]:
-    paginator = Paginator(tasks, 5)
+    paginator = Paginator(tasks, 10)
     try:
         page = paginator.page(page_number)
     except PageNotAnInteger:

@@ -1,0 +1,11 @@
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+ul.pagination li {
+    display: inline;
+}

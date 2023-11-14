@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <div id="header">
+        <div id="site-name">Taskify</div>
+        <div id="authentication-status">
+            {% if request.user.is_authenticated %}
+            <span>{{ request.user.username }}</span>
+            |
+            <a href="{% url 'users/logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'users/login' %}">Login</a>
+            |
+            <a href="{% url 'users/register' %}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

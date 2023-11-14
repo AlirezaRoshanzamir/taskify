@@ -1,0 +1,22 @@
+form.task {
+    background-color: #eeeeee;
+    border: 1px solid darkgray;
+    padding: 4px;
+    margin: 0 0 4px 0;
+    margin: 5px;
+}
+
+form.task > div {
+    margin: 3px 1px 3px 1px;
+}
+
+form.task input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form.task textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+}

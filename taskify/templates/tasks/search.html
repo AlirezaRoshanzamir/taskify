@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+{% block title %}Tasks{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static '_pagination.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/_task.css' %}">
+    <link rel="stylesheet" href="{% static 'tasks/search.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include "tasks/_menu.html" %}
+    <form method="post" action="{% url 'tasks/search' %}" class="task">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <input type="submit" value="Search">
+    </form>
+    <table class="tasks">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Status</td>
+                <td>Description</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td><a href="{% url 'tasks/edit' %}?id={{ task.id }}">{{ task.id }}</a></td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.description|truncatechars:100 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "_pagination.html" with page=tasks %}
+{% endblock %}

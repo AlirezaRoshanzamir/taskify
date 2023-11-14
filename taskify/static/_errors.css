@@ -1,0 +1,7 @@
+div.error {
+    background-color: pink;
+    padding: 5px;
+    margin: 5px;
+    color: darkred;
+    border: 1px solid darkred;
+}

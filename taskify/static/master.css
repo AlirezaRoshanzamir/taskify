@@ -1,0 +1,22 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: aliceblue;
+}
+
+div#header {
+    display: flex;
+    padding: 8px;
+    background-color: azure;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div#header > div#site-name {
+    font-size: 50px;
+}
+
+ul.errorlist {
+    padding: 3px 0 3px 0;
+    color: red;
+}

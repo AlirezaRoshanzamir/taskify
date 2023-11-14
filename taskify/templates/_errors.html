@@ -1,0 +1,7 @@
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="error">Error for {{ field.name.title|cut:"_" }}: {{ error }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}

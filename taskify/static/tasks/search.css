@@ -1,0 +1,30 @@
+table.tasks {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 5px;
+}
+
+table.tasks td {
+    padding: 15px;
+}
+
+table.tasks thead td {
+    background-color: #29839e;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 13px;
+    border: 1px solid #136991;
+}
+
+table.tasks tbody td {
+    color: #636363;
+    border: 1px solid #dddfe1;
+}
+
+table.tasks tbody tr {
+    background-color: #f9fafb;
+}
+
+table.tasks tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}

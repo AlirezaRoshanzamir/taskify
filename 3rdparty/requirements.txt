@@ -1,0 +1,2 @@
+django==4.2.7
+jsonschema==4.19.2

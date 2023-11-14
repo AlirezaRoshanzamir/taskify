@@ -1,5 +1,5 @@
 from django.db import models
-from taskify.models.json_schema_validator import JSONSchemaValidator
+from taskify.validators import JSONSchemaValidator
 
 
 class TaskStatus(models.TextChoices):

@@ -25,6 +25,8 @@ def search(request):
             if form.cleaned_data["dynamic_fields"]:
                 filter |= {"dynamic_fields__contains": form.cleaned_data["dynamic_fields"]}
             tasks = Task.objects.filter(**filter)
+        else:
+            tasks = Task.objects.all()
     else:
         form = SearchTaskForm()
         tasks = Task.objects.all()

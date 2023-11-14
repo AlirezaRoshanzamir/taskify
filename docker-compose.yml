@@ -10,20 +10,21 @@ services:
       - 8000:8000
 
   migration:
+    build: .
     image: taskify
-    command: python manage.py migrate --noinput
+    command: migrate --noinput
     volumes:
       - ./taskify:/usr/src/app/
     depends_on:
       - db
 
   db:
-    image: postgres:16.1-alpine3.18
+    image: docker.arvancloud.ir/postgres:16.1-alpine3.18
     ports:
       - 5432:5432
     volumes:
       - ./dist/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}

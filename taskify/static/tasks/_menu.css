@@ -1,5 +1,6 @@
 ul.menu {
     display: inline-block;
+    box-sizing: border-box;
     padding: 4px;
     background-color: lightblue;
     width: 100%;

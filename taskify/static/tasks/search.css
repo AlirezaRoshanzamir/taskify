@@ -1,6 +1,7 @@
 table.tasks {
     border-collapse: collapse;
-    width: 100%;
+    box-sizing: border-box;
+    width: calc(100% - 10px);
     margin: 5px;
 }
 
@@ -31,9 +32,9 @@ table.tasks tbody tr:nth-child(odd) {
 
 ul.pagination {
     display: inline-block;
-    padding: 0;
-    margin: 4px;
-    width: 100%;
+    box-sizing: border-box;
+    margin: 5px;
+    width: calc(100% - 10px);
     text-align: center;
 }
 

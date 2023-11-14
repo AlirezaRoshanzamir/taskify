@@ -2,7 +2,7 @@ from typing import Iterable
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from taskify.forms import CreateTaskForm, SearchTaskForm, UpdateTaskForm
@@ -32,7 +32,6 @@ def search(request):
     if filters:
         tasks = Task.objects.filter(**filters)
     else:
-        print("############################", filters)
         tasks = Task.objects.all()
 
     page = _paginate_tasks(tasks, page_number)

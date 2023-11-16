@@ -4,17 +4,21 @@ services:
   web:
     build: .
     image: taskify
+    command: runserver 0.0.0.0:8000
     volumes:
-      - ./taskify:/usr/src/app/
+      - .:/usr/src/app/
     ports:
       - 8000:8000
+
+    depends_on:
+      - migration
 
   migration:
     build: .
     image: taskify
     command: migrate --noinput
     volumes:
-      - ./taskify:/usr/src/app/
+      - .:/usr/src/app/
     depends_on:
       - db
 

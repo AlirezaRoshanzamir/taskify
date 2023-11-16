@@ -52,6 +52,14 @@ class Task(models.Model):
                                 },
                                 "additionalProperties": False,
                             },
+                            {
+                                "properties": {
+                                    "name": {"type": "string"},
+                                    "type": {"const": "user"},
+                                    "value": {"type": "string"},
+                                },
+                                "additionalProperties": False,
+                            },
                         ],
                         "required": ["name", "type", "value"],
                     },

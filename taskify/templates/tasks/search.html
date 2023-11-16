@@ -14,7 +14,7 @@
     {% include "tasks/_menu.html" %}
     <form method="post" action="{% url 'tasks/search' %}" class="task" id="search-form">
         {% csrf_token %}
-        {{ form.as_div }}
+        {{ search_form.as_div }}
         <input type="submit" value="Search">
     </form>
     <table class="tasks">
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for task in tasks %}
+            {% for task in page_object %}
                 <tr>
                     <td><a href="{% url 'tasks/edit' %}?id={{ task.id }}">{{ task.id }}</a></td>
                     <td>{{ task.name }}</td>
@@ -37,15 +37,15 @@
             {% endfor %}
         </tbody>
     </table>
-    {% if tasks.has_other_pages %}
+    {% if page_object.has_other_pages %}
         <ul class="pagination">
-            {% for i in tasks.paginator.page_range %}
-                {% if tasks.number == i %}
-                    <li class="active"><span>{{ i }}</span></li>
-                {% elif i > tasks.number|add:'-5' and i < tasks.number|add:'5' %}
-                    <li><button form="search-form" formaction="?page={{ i }}">{{ i }}</button></li>
-                {% elif i == tasks.number|add:'-5' or i == tasks.number|add:'5' %}
+            {% for i in elided_page_range %}
+                {% if i == page_object.paginator.ELLIPSIS %}
                     <li>...</li>
+                {% elif page_object.number == i %}
+                    <li class="active"><span>{{ i }}</span></li>
+                {% else %}
+                    <li><button form="search-form" formaction="?page={{ i }}">{{ i }}</button></li>
                 {% endif %}
             {% endfor %}
         </ul>

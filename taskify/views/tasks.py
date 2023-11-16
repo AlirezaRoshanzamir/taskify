@@ -14,28 +14,40 @@ def search(request):
     page_number = request.GET.get("page", 1)
     filters = {}
     if request.method == "POST":
-        form = SearchTaskForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data["id"]:
-                filters |= {"id": form.cleaned_data["id"]}
-            if form.cleaned_data["name"]:
-                filters |= {"name": form.cleaned_data["name"]}
-            if form.cleaned_data["status"] in TaskStatus:
-                filters |= {"status": form.cleaned_data["status"]}
-            if form.cleaned_data["dynamic_fields"]:
+        search_form = SearchTaskForm(request.POST)
+        if search_form.is_valid():
+            if search_form.cleaned_data["id"]:
+                filters |= {"id": search_form.cleaned_data["id"]}
+            if search_form.cleaned_data["name"]:
+                filters |= {"name": search_form.cleaned_data["name"]}
+            if search_form.cleaned_data["status"] in TaskStatus:
+                filters |= {"status": search_form.cleaned_data["status"]}
+            if search_form.cleaned_data["dynamic_fields"]:
                 filters |= {
-                    "dynamic_fields__contains": form.cleaned_data["dynamic_fields"]
+                    "dynamic_fields__contains": search_form.cleaned_data[
+                        "dynamic_fields"
+                    ]
                 }
     else:
-        form = SearchTaskForm()
+        search_form = SearchTaskForm()
 
     if filters:
         tasks = Task.objects.filter(**filters)
     else:
         tasks = Task.objects.all()
 
-    page = _paginate_tasks(tasks, page_number)
-    return render(request, "tasks/search.html", {"tasks": page, "form": form})
+    page_object = _paginate_tasks(tasks, page_number)
+    elided_page_range = page_object.paginator.get_elided_page_range(page_object.number)
+
+    return render(
+        request,
+        "tasks/search.html",
+        {
+            "page_object": page_object,
+            "elided_page_range": elided_page_range,
+            "search_form": search_form,
+        },
+    )
 
 
 @login_required

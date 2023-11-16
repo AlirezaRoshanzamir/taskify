@@ -51,6 +51,19 @@ Edit (update/delete) an existing task page:
     - [x] Pagination
   - [ ] Graphical dynamic fields management
 
+## Installation
+You should only clone the repository:
+
+```console
+git clone https://github.com/AlirezaRoshanzamir/taskify.git
+```
+
+and start the services:
+
+```console
+docker compose up
+```
+
 ## Build Tools and Software Stack
 The following programming languages and tools are used in this repository:
 

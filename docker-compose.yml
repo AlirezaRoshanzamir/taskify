@@ -9,9 +9,9 @@ services:
       - .:/usr/src/app/
     ports:
       - 8000:8000
-
     depends_on:
-      - migration
+      migration:
+        condition: service_completed_successfully
 
   migration:
     build: .
@@ -20,7 +20,8 @@ services:
     volumes:
       - .:/usr/src/app/
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: docker.arvancloud.ir/postgres:16.1-alpine3.18
@@ -32,3 +33,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3

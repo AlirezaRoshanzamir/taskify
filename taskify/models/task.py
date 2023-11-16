@@ -1,6 +1,19 @@
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from taskify.validators import JSONSchemaValidator
+
+
+def users_existence_validator(dynamic_fields):
+    for dynamic_field in dynamic_fields:
+        if (
+            dynamic_field["type"] == "user"
+            and not User.objects.filter(username=dynamic_field["value"]).exists()
+        ):
+            raise ValidationError(
+                'The user "{}" does not exist.'.format(dynamic_field["value"])
+            )
 
 
 class TaskStatus(models.TextChoices):
@@ -64,7 +77,8 @@ class Task(models.Model):
                         "required": ["name", "type", "value"],
                     },
                 }
-            )
+            ),
+            users_existence_validator,
         ],
     )
 

@@ -10,7 +10,7 @@ Login page:
 
 ![Login page](images/login.png)
 
-List/search tasks page:
+List/search tasks page (over 1 million tasks):
 
 <table>
     <tr>
@@ -33,7 +33,7 @@ Edit (update/delete) an existing task page:
   - [x] Login
 - [x] Administration
 - [x] Task management
-  - [x] Definition and validation
+  - [x] Definition and validation (format and existence)
     - [x] Id
     - [x] Name
     - [x] Description
@@ -65,7 +65,7 @@ You can perform common tasks on the repository as follows:
 
 | Command | Description |
 | ------- | ----------- |
-| `black && isort` | Format the code. |
+| `black . && isort .` | Format the code. |
 | `python -m venv venv && source venv/bin/action` | Create a virtual environment and activate it. |
 | `pip install -r 3rdparty/requirements.txt` | Install the requirements. |
 | `pip install -r 3rdparty/requirements-dev.txt` | Install the development time requirements. |

@@ -27,6 +27,9 @@ Edit (update/delete) an existing task page:
 
 ![Edit an existing task page](images/edit-task.png)
 
+## Database Schema
+![DB Schema](images/db-tables.png)
+
 ## Features
 - [x] Authentication and authorization: using the built-in Django administration.
   - [x] Registration
